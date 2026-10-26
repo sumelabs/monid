@@ -31,8 +31,16 @@ rather than a row under any model vendor already in the catalog.
 
 ## Non-goals
 
-- Any model Sume routes to another vendor without its own pipeline. Those
-  vendors are listed directly; this connector does not resell them.
+- Raw Seedance 2.5 calls. Sume Remix renders on Seedance 2.5, and Sume adds
+  the edit planning from the source and the photos, the motion guide for
+  motion transfer and restyle, and the source's own sound and timing on the
+  result. Callers buy that edit, priced per second of source video (the
+  price covers the source second and the output second). Plain Seedance 2.5
+  generation stays with its vendor's own listing; this connector adds no
+  pass-through model.
+- Naming the engine to callers. Sume's API does not name the model under a
+  Sume product, so the endpoint descriptions and notes describe Sume Remix
+  only; this proposal names it for reviewers.
 - The restyle presets listing route; the 20 style ids are an enum on the
   restyle input.
 - Webhook delivery; the connector polls the documented job route.

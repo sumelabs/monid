@@ -21,8 +21,6 @@ export default defineEndpoint<RemixUsageModel, typeof zMotionTransferBody>({
             "leave the rest of the shot unchanged, use Sume Remix Object " +
             "Swap; to change the whole look to a style, use Sume Remix " +
             "Restyle.",
-        docsUrl:
-            "https://www.sume.com/sume-api/models/sume/sume-remix-motion-transfer",
         categories: ["video-generation"],
     },
     endpoint: "/v1/video/sume-remix-motion-transfer",

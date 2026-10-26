@@ -1,0 +1,277 @@
+{
+    "name": "recorded-restyle",
+    "description": "RECORDED live on 2026-10-26 against Sume's development API (api.dev.sume.com, same code path as api.sume.com) with `deno task record` as the sumelabs workspace, 480p, public-domain source. Hand-minimized: the submit, the first poll of each status, and the terminal poll that carries the video and the captured charge. Urls bound with {{request.url}} / {{request.origin}}.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}",
+                "body": {
+                    "video_url": "https://media.sume.com/assets/asset_c6b59204aaa54c9094d83a5308b318c5/source.mp4",
+                    "preset_id": "rounded-toy-cgi",
+                    "resolution": "480p"
+                }
+            },
+            "res": {
+                "status": 202,
+                "body": {
+                    "data": {
+                        "request_id": "job_7b1fa8dc-3813-4df3-9fcb-889e06c22126",
+                        "job": {
+                            "id": "job_7b1fa8dc-3813-4df3-9fcb-889e06c22126",
+                            "type": "video_generation",
+                            "status": "queued",
+                            "model": "sume-remix",
+                            "idempotency_key": "9284c254-6e22-49e9-b628-a148c90f64aa:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:26.620Z",
+                            "updated_at": "2026-10-26T21:31:26.727Z",
+                            "started_at": null,
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": null,
+                            "error": null,
+                            "usage_summary": null,
+                            "webhook_delivery": null,
+                            "input": {
+                                "duration": 8,
+                                "preset_id": "rounded-toy-cgi",
+                                "video_url": "https://media.sume.com/assets/asset_c6b59204aaa54c9094d83a5308b318c5/source.mp4",
+                                "remix_mode": "restyle",
+                                "resolution": "480p",
+                                "remix_product": "remix"
+                            }
+                        },
+                        "status_url": "https://api.dev.sume.com/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126/status",
+                        "result_url": "https://api.dev.sume.com/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126/result",
+                        "events_url": "https://api.dev.sume.com/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126/events",
+                        "cancel_url": "https://api.dev.sume.com/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126/cancel",
+                        "cancelable": true,
+                        "next_action": "poll_status",
+                        "next_poll_after_seconds": 2,
+                        "recommended_poll_interval_seconds": 2,
+                        "retry_after_seconds": null,
+                        "result_ready": false,
+                        "terminal": false,
+                        "idempotency_hit": false,
+                        "usage": {
+                            "credits": 62,
+                            "usd": "0.99"
+                        },
+                        "remix": {
+                            "product": "Sume Remix",
+                            "mode": "restyle",
+                            "model": "sume-remix"
+                        },
+                        "generation_limits": {
+                            "tier": "enterprise",
+                            "plan_id": "enterprise",
+                            "limit_source": "admin_override",
+                            "purchased_credits_last_4_weeks": 5640,
+                            "purchased_concurrency_limit": 10,
+                            "purchased_queued_jobs_limit": 50,
+                            "plan_concurrency_limit": 10,
+                            "plan_queued_jobs_limit": 50,
+                            "concurrency_limit": 300,
+                            "queued_jobs_limit": 1500,
+                            "admin_override_expires_at": null,
+                            "accepted_generation_jobs_limit": 1800,
+                            "active_generation_jobs": 0,
+                            "queued_generation_jobs": 2,
+                            "accepted_generation_jobs": 2,
+                            "queue_capacity_remaining": 1798,
+                            "wave_size_hint": 1348
+                        },
+                        "sync": null
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126"
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "data": {
+                        "job": {
+                            "id": "job_7b1fa8dc-3813-4df3-9fcb-889e06c22126",
+                            "type": "video_generation",
+                            "status": "queued",
+                            "model": "sume-remix",
+                            "idempotency_key": "9284c254-6e22-49e9-b628-a148c90f64aa:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:26.620Z",
+                            "updated_at": "2026-10-26T21:31:54.192Z",
+                            "started_at": null,
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": null,
+                            "error": null,
+                            "usage_summary": {
+                                "status": "reserved",
+                                "reserved_credits": 62,
+                                "captured_credits": 0,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "final": false,
+                                "updated_at": "2026-10-26T21:31:26.681Z",
+                                "reserved_usd_cents": 99,
+                                "captured_usd_cents": 0,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0
+                            },
+                            "webhook_delivery": null,
+                            "input": {
+                                "duration": 8,
+                                "preset_id": "rounded-toy-cgi",
+                                "video_url": "https://media.sume.com/assets/asset_c6b59204aaa54c9094d83a5308b318c5/source.mp4",
+                                "remix_mode": "restyle",
+                                "resolution": "480p",
+                                "remix_product": "remix"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126"
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "data": {
+                        "job": {
+                            "id": "job_7b1fa8dc-3813-4df3-9fcb-889e06c22126",
+                            "type": "video_generation",
+                            "status": "processing",
+                            "model": "sume-remix",
+                            "idempotency_key": "9284c254-6e22-49e9-b628-a148c90f64aa:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:26.620Z",
+                            "updated_at": "2026-10-26T21:33:54.500Z",
+                            "started_at": "2026-10-26T21:33:54.482Z",
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": null,
+                            "error": null,
+                            "usage_summary": {
+                                "status": "reserved",
+                                "reserved_credits": 62,
+                                "captured_credits": 0,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "final": false,
+                                "updated_at": "2026-10-26T21:31:26.681Z",
+                                "reserved_usd_cents": 99,
+                                "captured_usd_cents": 0,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0
+                            },
+                            "webhook_delivery": null,
+                            "input": {
+                                "duration": 8,
+                                "preset_id": "rounded-toy-cgi",
+                                "video_url": "https://media.sume.com/assets/asset_c6b59204aaa54c9094d83a5308b318c5/source.mp4",
+                                "remix_mode": "restyle",
+                                "resolution": "480p",
+                                "remix_product": "remix"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_7b1fa8dc-3813-4df3-9fcb-889e06c22126"
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "data": {
+                        "job": {
+                            "id": "job_7b1fa8dc-3813-4df3-9fcb-889e06c22126",
+                            "type": "video_generation",
+                            "status": "completed",
+                            "model": "sume-remix",
+                            "idempotency_key": "9284c254-6e22-49e9-b628-a148c90f64aa:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:26.620Z",
+                            "updated_at": "2026-10-26T21:36:49.494Z",
+                            "started_at": "2026-10-26T21:33:54.482Z",
+                            "completed_at": "2026-10-26T21:36:46.091Z",
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": {
+                                "source_audio": "none",
+                                "artifacts": [
+                                    {
+                                        "id": "artf_sFwlHddLiO_XWwQtHArRpcTLnpnbc8L9",
+                                        "type": "video",
+                                        "url": "https://media.sume.com/artifacts/artf_sFwlHddLiO_XWwQtHArRpcTLnpnbc8L9/video.mp4",
+                                        "content_type": "video/mp4",
+                                        "public_artifact_id": "artf_sFwlHddLiO_XWwQtHArRpcTLnpnbc8L9",
+                                        "visibility": "public_by_link",
+                                        "size_bytes": 535701,
+                                        "width": null,
+                                        "height": null,
+                                        "duration_ms": null,
+                                        "checksum_sha256": "2567ba386158a775c16202d14cb4ead53c56e9167043cd4f60383b57429bb715"
+                                    },
+                                    {
+                                        "id": "artf_dqmc8wyI7adXENJtUOLu42uJoo0PcBZb",
+                                        "type": "image",
+                                        "url": "https://media.sume.com/artifacts/artf_dqmc8wyI7adXENJtUOLu42uJoo0PcBZb/poster-00.jpg",
+                                        "content_type": "image/jpeg",
+                                        "public_artifact_id": "artf_dqmc8wyI7adXENJtUOLu42uJoo0PcBZb",
+                                        "visibility": "public_by_link",
+                                        "stage": "poster",
+                                        "size_bytes": 19069,
+                                        "width": null,
+                                        "height": null,
+                                        "duration_ms": null,
+                                        "checksum_sha256": null
+                                    }
+                                ],
+                                "poster_url": "https://media.sume.com/artifacts/artf_dqmc8wyI7adXENJtUOLu42uJoo0PcBZb/poster-00.jpg"
+                            },
+                            "error": null,
+                            "usage_summary": {
+                                "status": "captured",
+                                "reserved_credits": 62,
+                                "captured_credits": 62,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "final": true,
+                                "updated_at": "2026-10-26T21:36:46.798Z",
+                                "reserved_usd_cents": 99,
+                                "captured_usd_cents": 99,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0
+                            },
+                            "webhook_delivery": null,
+                            "input": {
+                                "duration": 8,
+                                "preset_id": "rounded-toy-cgi",
+                                "video_url": "https://media.sume.com/assets/asset_c6b59204aaa54c9094d83a5308b318c5/source.mp4",
+                                "remix_mode": "restyle",
+                                "resolution": "480p",
+                                "remix_product": "remix"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

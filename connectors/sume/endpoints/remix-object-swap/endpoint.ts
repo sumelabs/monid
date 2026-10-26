@@ -21,8 +21,6 @@ export default defineEndpoint<RemixUsageModel, typeof zObjectSwapBody>({
             "priced per second of source video. To recast everyone in the " +
             "source, use Sume Remix Motion Transfer; to change the whole " +
             "look, use Sume Remix Restyle.",
-        docsUrl:
-            "https://www.sume.com/sume-api/models/sume/sume-remix-object-swap",
         categories: ["video-generation"],
     },
     endpoint: "/v1/video/sume-remix-object-swap",

@@ -22,7 +22,6 @@ export default defineEndpoint<RemixUsageModel, typeof zRestyleBody>({
             "second of source video. To put specific people or objects into " +
             "the video, use Sume Remix Motion Transfer or Sume Remix Object " +
             "Swap.",
-        docsUrl: "https://www.sume.com/sume-api/models/sume/sume-remix-restyle",
         categories: ["video-generation"],
     },
     endpoint: "/v1/video/sume-remix-restyle",

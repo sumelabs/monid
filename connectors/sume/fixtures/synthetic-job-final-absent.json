@@ -1,6 +1,6 @@
 {
-    "name": "synthetic-job-completed",
-    "description": "SYNTHETIC (no Sume key was provisioned for the connector when this was written): the canonical Remix chain. The submit answers 202 with the queued job, one poll reads processing, the terminal poll reads completed with one video artifact and the captured usage summary (87 credits of $0.016 = $1.392, 140 whole cents). Shapes follow Sume's public OpenAPI (PublicDeveloperApiJob, PublicArtifact, PublicDeveloperApiJobUsageSummary). {{request.url}} binds per endpoint, so one chain serves all three.",
+    "name": "synthetic-job-final-absent",
+    "description": "SYNTHETIC: the job reads completed while its usage summary is still null (no ledger row read yet). The connector does not settle without a final summary; it keeps polling and settles once the charge is captured.",
     "calls": [
         {
             "req": {
@@ -88,14 +88,14 @@
                         "job": {
                             "id": "job_00000000-0000-4000-8000-000000000001",
                             "type": "video_generation",
-                            "status": "processing",
+                            "status": "completed",
                             "model": "sume-remix",
                             "idempotency_key": "run-1:submit",
                             "communication_mode": "async",
                             "created_at": "2026-10-26T20:00:00.000Z",
-                            "updated_at": "2026-10-26T20:00:00.000Z",
+                            "updated_at": "2026-10-26T20:04:10.000Z",
                             "started_at": "2026-10-26T20:00:00.000Z",
-                            "completed_at": null,
+                            "completed_at": "2026-10-26T20:04:10.000Z",
                             "canceled_at": null,
                             "auth_source": "api_key",
                             "input": {
@@ -106,21 +106,24 @@
                                 "resolution": "720p",
                                 "duration": 5
                             },
-                            "result": null,
-                            "error": null,
-                            "usage_summary": {
-                                "status": "reserved",
-                                "reserved_credits": 87,
-                                "captured_credits": 0,
-                                "refunded_credits": 0,
-                                "released_credits": 0,
-                                "reserved_usd_cents": 140,
-                                "captured_usd_cents": 0,
-                                "refunded_usd_cents": 0,
-                                "released_usd_cents": 0,
-                                "final": false,
-                                "updated_at": "2026-10-26T20:00:00.000Z"
+                            "result": {
+                                "artifacts": [
+                                    {
+                                        "id": "art_00000000000000000001",
+                                        "public_artifact_id": "art_00000000000000000001",
+                                        "visibility": "public_by_link",
+                                        "type": "video",
+                                        "url": "https://media.sume.com/a/00000000000000000001.mp4",
+                                        "content_type": "video/mp4",
+                                        "size_bytes": 2048000,
+                                        "width": 1280,
+                                        "height": 720,
+                                        "duration_ms": 5000
+                                    }
+                                ]
                             },
+                            "error": null,
+                            "usage_summary": null,
                             "webhook_delivery": null
                         }
                     }

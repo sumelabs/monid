@@ -8,7 +8,6 @@
 
 ## 2. Verification
 
-- [x] 2.1 Add replay fixtures (`synthetic-` until recorded with a live key) and lifecycle tests
+- [x] 2.1 Add lifecycle tests: one recorded success chain per endpoint (`recorded-*`, Sume dev API, public-domain sources) and `synthetic-` chains for the error and settling paths
 - [x] 2.2 Add the three `sume#` ids to `connectors/ids.lock.json` as `deno task ids:check --update` writes them; the lock on `main` already drifts for other connectors, so only the `sume#` lines change
 - [x] 2.3 Run `deno fmt`, `deno lint`, `deno task check` and `deno task test` with no network
-- [ ] 2.4 Replace the synthetic success chains with `deno task record` output once a Sume key is provisioned for the connector

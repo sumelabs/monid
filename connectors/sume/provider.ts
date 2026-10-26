@@ -27,8 +27,11 @@ export default defineProvider({
             "A source smaller than 640 px on its shortest side, or media a " +
             "content check refuses, fails the job; a refused, failed or " +
             "canceled job bills $0.",
-            "The finished clip is a Sume-hosted MP4 in " +
-            "data.job.result.artifacts.",
+            "The finished clip is a Sume-hosted 24 fps MP4 in " +
+            "data.job.result.artifacts. It follows the source's length but " +
+            "can end a fraction of a second early (a 7.13 s source came back " +
+            "as 7.125 s); the price counts the source length rounded up to " +
+            "whole seconds.",
             "The bill is the job's captured charge, which Sume rounds up to " +
             "whole cents; leave duration out and Sume reads the source " +
             "length from the file.",
@@ -39,7 +42,7 @@ export default defineProvider({
         baseUrl: "https://api.sume.com",
         headers: { Accept: "application/json" },
     },
-    timeouts: { requestMs: 60_000, runMs: 1_800_000, pollMs: 10_000 },
+    timeouts: { requestMs: 60_000, runMs: 1_800_000, pollMs: 30_000 },
     lifecycle: {
         start: async ({ data, utils, logger }) => {
             const res = await utils.request({
@@ -77,6 +80,14 @@ export default defineProvider({
                 method: "GET",
                 path: "/v1/jobs/" + encodeURIComponent(jobId),
             });
+            if (res.status === 404) {
+                logger.warn("sume remix job not found", { jobId });
+                return {
+                    kind: "COMPLETED",
+                    httpStatus: 404,
+                    output: res.body,
+                };
+            }
             if (res.status < 200 || res.status >= 300) {
                 throw new Error(
                     "Sume job query returned " + String(res.status),
@@ -109,13 +120,16 @@ export default defineProvider({
                     jobId,
                     status: String(status),
                 });
-                return { kind: "RUNNING" };
+                return {
+                    kind: "RUNNING",
+                    state: { externalRunId: jobId, stage: "unknown" },
+                };
             }
             const final = utils.json.optionalGet(
                 res.body,
                 "$.data.job.usage_summary.final",
             );
-            if (final === false) {
+            if (final !== true) {
                 return {
                     kind: "RUNNING",
                     state: { externalRunId: jobId, stage: "settling" },

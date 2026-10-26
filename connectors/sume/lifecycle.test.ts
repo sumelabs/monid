@@ -93,27 +93,39 @@ Deno.test("sume: the connector publishes exactly the three Remix endpoints", asy
     }
 });
 
-Deno.test("sume: every endpoint completes the job and bills the captured charge", async () => {
-    for (const id of IDS) {
-        const result = await run(id, "synthetic-job-completed");
+const RECORDED: [string, string, number, Record<string, number>, number][] = [
+    [MOTION, "recorded-motion-transfer", 0.99, { "480p": 8 }, 0.984],
+    [SWAP, "recorded-object-swap", 1.36, { "480p": 11 }, 1.353],
+    [RESTYLE, "recorded-restyle", 0.99, { "480p": 8 }, 0.984],
+];
+
+const recordedInput = (chain: { calls: { req: { body?: Json } }[] }) =>
+    ({ body: chain.calls[0].req.body }) as RunInput;
+
+Deno.test("sume: every endpoint's recorded run completes and bills the captured charge", async () => {
+    for (const [id, name, claim, evidence, derived] of RECORDED) {
+        const chain = await fixture(name);
+        const result = await runEndpoint({
+            unit: await testSealedUnit(id),
+            input: recordedInput(chain),
+            mode: "replay",
+            fixture: chain,
+        });
         assertEquals(result.httpStatus, 200, id);
         assertEquals(result.isProviderError, false, id);
-        assertBilled(result.usage, {
-            claim: 1.4,
-            evidence: { "720p": 5 },
-            derived: 1.383,
-        }, id);
+        assertBilled(result.usage, { claim, evidence, derived }, id);
         const job = ((result.output as Record<string, Json>).data as Record<
             string,
             Json
         >).job as Record<string, Json>;
         assertEquals(job.status, "completed", id);
+        assertEquals(job.model, "sume-remix", id);
         assert(!("usage_summary" in job), `${id}: usage_summary is consumed`);
         const artifacts = (job.result as Record<string, Json>)
             .artifacts as Record<string, Json>[];
-        assertEquals(artifacts[0].type, "video", id);
-        assert(typeof artifacts[0].url === "string", id);
-        assertEquals(result.timing.attempts, 2, id);
+        const video = artifacts.find((item) => item.type === "video");
+        assert(video !== undefined && typeof video.url === "string", id);
+        assertEquals(result.timing.attempts, chain.calls.length - 1, id);
     }
 });
 
@@ -126,6 +138,46 @@ Deno.test("sume: a completed job keeps polling until its charge is final", async
         evidence: { "720p": 5 },
         derived: 1.383,
     });
+});
+
+Deno.test("sume: a completed job with no final usage summary is not settled yet", async () => {
+    const result = await run(MOTION, "synthetic-job-final-absent");
+    assertEquals(result.httpStatus, 200);
+    assertEquals(result.timing.attempts, 2);
+    assertBilled(result.usage, {
+        claim: 1.4,
+        evidence: { "720p": 5 },
+        derived: 1.383,
+    });
+});
+
+Deno.test("sume: a delivered video with no captured charge still bills the rate card, never $0", async () => {
+    const result = await run(RESTYLE, "synthetic-job-completed-uncaptured");
+    assertEquals(result.httpStatus, 200);
+    assertEquals(result.isProviderError, false);
+    assertEquals(Object.keys(result.usage.credits), ["default"]);
+    assertAlmostEquals(result.usage.credits.default, 1.383, 1e-9);
+    assertEquals(result.usage.evidence, { "720p": 5 });
+    assertEquals(result.usage.mismatch, undefined);
+});
+
+Deno.test("sume: an unknown job status keeps the run on the same job", async () => {
+    const result = await run(SWAP, "synthetic-job-unknown-status");
+    assertEquals(result.httpStatus, 200);
+    assertEquals(result.timing.attempts, 2);
+    assertBilled(result.usage, {
+        claim: 1.4,
+        evidence: { "720p": 5 },
+        derived: 1.383,
+    });
+});
+
+Deno.test("sume: a job the key cannot find ends as 404 at $0 instead of retrying", async () => {
+    const result = await run(MOTION, "synthetic-job-not-found");
+    assertEquals(result.isProviderError, true);
+    assertEquals(result.httpStatus, 404);
+    assertEquals(result.usage, ZERO);
+    assertEquals((result.output as Record<string, Json>).code, "not_found");
 });
 
 Deno.test("sume: without a duration the evidence reads the output length and the fold rounds it up", async () => {
@@ -209,7 +261,7 @@ Deno.test("sume: a failing job query throws rather than abandoning a running job
 
 Deno.test("sume: every submit carries the bearer key and an idempotency key from the run id", async () => {
     const unit = await testSealedUnit(MOTION);
-    const chain = await fixture("synthetic-job-completed");
+    const chain = await fixture("recorded-motion-transfer");
     const requestUrl = unit.doc.request.url;
     const replay = replayFetch(chain, {
         "request.url": requestUrl,
@@ -227,7 +279,9 @@ Deno.test("sume: every submit carries the bearer key and an idempotency key from
         sleep: () => Promise.resolve(),
     });
     const loaded = await engine.load(unit);
-    const started = await loaded.start(inputFor(MOTION), { runId: "run-1" });
+    const started = await loaded.start(recordedInput(chain), {
+        runId: "run-1",
+    });
     assertEquals(started.kind, "RUNNING");
     assertEquals(sent[0]["Idempotency-Key"], "run-1:submit");
     assertEquals(sent[0]["Authorization"], "Bearer test-key");
@@ -331,7 +385,7 @@ Deno.test("sume: the three endpoints share one lifecycle, one settle and one rat
             default: { label: "US dollars" },
         }, id);
         assertEquals(doc.usage.model, first.usage.model, id);
-        assertEquals(doc.timeouts.pollMs, 10_000, id);
+        assertEquals(doc.timeouts.pollMs, 30_000, id);
     }
 });
 

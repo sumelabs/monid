@@ -21,13 +21,15 @@ zero usage; a 2xx submit without a job id SHALL throw a non-retriable error.
 - **AND** Sume answers with the job it already created
 
 ### Requirement: Job polling and terminal outcomes
-The provider SHALL poll `GET /v1/jobs/{id}`. `queued` and `processing` SHALL
-keep the run in flight. `failed` SHALL complete with HTTP 500 and `canceled`
-with HTTP 409, both as provider errors with zero usage. `completed` SHALL keep
-the run in flight while `usage_summary.final` is `false`, then complete with
-HTTP 200 when the job carries a video artifact with a URL, or HTTP 502 with
-zero usage when it does not. A non-2xx answer to the poll itself SHALL throw a
-retriable error rather than settle the run.
+The provider SHALL poll `GET /v1/jobs/{id}` every 30 seconds. `queued`,
+`processing` and any status it does not know SHALL keep the run in flight on
+the same job id. `failed` SHALL complete with HTTP 500 and `canceled` with
+HTTP 409, both as provider errors with zero usage. `completed` SHALL keep the
+run in flight until `usage_summary.final` is `true` (absent, `null` or `false`
+all wait), then complete with HTTP 200 when the job carries a video artifact
+with a URL, or HTTP 502 with zero usage when it does not. A 404 on the poll
+SHALL complete the run as a provider error with zero usage; any other non-2xx
+answer to the poll SHALL throw a retriable error rather than settle the run.
 
 #### Scenario: A refused edit bills nothing
 - **WHEN** the job ends `failed` because the source or a photo was refused
@@ -38,6 +40,10 @@ retriable error rather than settle the run.
 - **WHEN** the job reads `completed` before `usage_summary.final` is `true`
 - **THEN** the run keeps polling
 - **AND** completes on the first poll where the summary is final
+
+#### Scenario: A delivered video is never free
+- **WHEN** a completed job with a video has a final summary that is not `captured`
+- **THEN** no claim is made and the rate-card fold bills the source seconds
 
 ### Requirement: Settlement from the captured charge
 A successful run SHALL claim `usage_summary.captured_usd_cents / 100` US

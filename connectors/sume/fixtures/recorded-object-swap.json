@@ -1,0 +1,239 @@
+{
+    "name": "recorded-object-swap",
+    "description": "RECORDED live on 2026-10-26 against Sume's development API (api.dev.sume.com, same code path as api.sume.com) with `deno task record` as the sumelabs workspace, 480p, public-domain source. Hand-minimized: the submit, the first poll of each status, and the terminal poll that carries the video and the captured charge. Urls bound with {{request.url}} / {{request.origin}}.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}",
+                "body": {
+                    "video_url": "https://media.sume.com/assets/asset_512d72eb42304c21bba5041fd4720137/source.mp4",
+                    "image_urls": [
+                        "https://media.sume.com/artifacts/artf_0CiuQe_UdLsGpRozh9W3cKbGS5H1LZ4T/images.png"
+                    ],
+                    "prompt": "Replace the steam locomotive and its carriages with the white high-speed bullet train from Image 1; the waiting passengers and the station stay as they are.",
+                    "resolution": "480p",
+                    "duration": 11
+                }
+            },
+            "res": {
+                "status": 202,
+                "body": {
+                    "data": {
+                        "request_id": "job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584",
+                        "job": {
+                            "id": "job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584",
+                            "type": "video_generation",
+                            "status": "queued",
+                            "model": "sume-remix",
+                            "idempotency_key": "81d95233-0c56-47ee-b808-1f00d5494d0d:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:27.415Z",
+                            "updated_at": "2026-10-26T21:31:37.066Z",
+                            "started_at": null,
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": null,
+                            "error": null,
+                            "usage_summary": null,
+                            "webhook_delivery": null,
+                            "input": {
+                                "prompt": "Replace the steam locomotive and its carriages with the white high-speed bullet train from Image 1; the waiting passengers and the station stay as they are.",
+                                "duration": 11,
+                                "video_url": "https://media.sume.com/assets/asset_512d72eb42304c21bba5041fd4720137/source.mp4",
+                                "remix_mode": "object-swap",
+                                "resolution": "480p",
+                                "remix_product": "remix",
+                                "reference_image_urls": [
+                                    "https://media.sume.com/artifacts/artf_0CiuQe_UdLsGpRozh9W3cKbGS5H1LZ4T/images.png"
+                                ]
+                            }
+                        },
+                        "status_url": "https://api.dev.sume.com/v1/jobs/job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584/status",
+                        "result_url": "https://api.dev.sume.com/v1/jobs/job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584/result",
+                        "events_url": "https://api.dev.sume.com/v1/jobs/job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584/events",
+                        "cancel_url": null,
+                        "cancelable": false,
+                        "next_action": "poll_status",
+                        "next_poll_after_seconds": 2,
+                        "recommended_poll_interval_seconds": 2,
+                        "retry_after_seconds": null,
+                        "result_ready": false,
+                        "terminal": false,
+                        "idempotency_hit": false,
+                        "usage": {
+                            "credits": 85,
+                            "usd": "1.36"
+                        },
+                        "remix": {
+                            "product": "Sume Remix",
+                            "mode": "object-swap",
+                            "model": "sume-remix"
+                        },
+                        "generation_limits": {
+                            "tier": "enterprise",
+                            "plan_id": "enterprise",
+                            "limit_source": "admin_override",
+                            "purchased_credits_last_4_weeks": 5640,
+                            "purchased_concurrency_limit": 10,
+                            "purchased_queued_jobs_limit": 50,
+                            "plan_concurrency_limit": 10,
+                            "plan_queued_jobs_limit": 50,
+                            "concurrency_limit": 300,
+                            "queued_jobs_limit": 1500,
+                            "admin_override_expires_at": null,
+                            "accepted_generation_jobs_limit": 1800,
+                            "active_generation_jobs": 2,
+                            "queued_generation_jobs": 1,
+                            "accepted_generation_jobs": 3,
+                            "queue_capacity_remaining": 1797,
+                            "wave_size_hint": 1347
+                        },
+                        "sync": null
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584"
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "data": {
+                        "job": {
+                            "id": "job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584",
+                            "type": "video_generation",
+                            "status": "processing",
+                            "model": "sume-remix",
+                            "idempotency_key": "81d95233-0c56-47ee-b808-1f00d5494d0d:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:27.415Z",
+                            "updated_at": "2026-10-26T21:32:06.756Z",
+                            "started_at": "2026-10-26T21:31:38.539Z",
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": null,
+                            "error": null,
+                            "usage_summary": {
+                                "status": "reserved",
+                                "reserved_credits": 85,
+                                "captured_credits": 0,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "final": false,
+                                "updated_at": "2026-10-26T21:31:27.445Z",
+                                "reserved_usd_cents": 136,
+                                "captured_usd_cents": 0,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0
+                            },
+                            "webhook_delivery": null,
+                            "input": {
+                                "prompt": "Replace the steam locomotive and its carriages with the white high-speed bullet train from Image 1; the waiting passengers and the station stay as they are.",
+                                "duration": 11,
+                                "video_url": "https://media.sume.com/assets/asset_512d72eb42304c21bba5041fd4720137/source.mp4",
+                                "remix_mode": "object-swap",
+                                "resolution": "480p",
+                                "remix_product": "remix",
+                                "reference_image_urls": [
+                                    "https://media.sume.com/artifacts/artf_0CiuQe_UdLsGpRozh9W3cKbGS5H1LZ4T/images.png"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584"
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "data": {
+                        "job": {
+                            "id": "job_2b4db0f2-a5b8-4d4c-8b14-0a0c0d232584",
+                            "type": "video_generation",
+                            "status": "completed",
+                            "model": "sume-remix",
+                            "idempotency_key": "81d95233-0c56-47ee-b808-1f00d5494d0d:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T21:31:27.415Z",
+                            "updated_at": "2026-10-26T21:40:20.773Z",
+                            "started_at": "2026-10-26T21:31:38.539Z",
+                            "completed_at": "2026-10-26T21:40:17.164Z",
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "result": {
+                                "source_audio": "none",
+                                "artifacts": [
+                                    {
+                                        "id": "artf__6gRyZ_AxrlfGk1GmtDWl4ccCFLyXFg8",
+                                        "type": "video",
+                                        "url": "https://media.sume.com/artifacts/artf__6gRyZ_AxrlfGk1GmtDWl4ccCFLyXFg8/video.mp4",
+                                        "content_type": "video/mp4",
+                                        "public_artifact_id": "artf__6gRyZ_AxrlfGk1GmtDWl4ccCFLyXFg8",
+                                        "visibility": "public_by_link",
+                                        "size_bytes": 2371453,
+                                        "width": null,
+                                        "height": null,
+                                        "duration_ms": null,
+                                        "checksum_sha256": "e2522558aecfa4d577989bf7b1121156172b9094ac648a5a90eedbb4c0784c01"
+                                    },
+                                    {
+                                        "id": "artf_o0Yrv01no6LAAiy8cnV-fBHHJhq80hME",
+                                        "type": "image",
+                                        "url": "https://media.sume.com/artifacts/artf_o0Yrv01no6LAAiy8cnV-fBHHJhq80hME/poster-00.jpg",
+                                        "content_type": "image/jpeg",
+                                        "public_artifact_id": "artf_o0Yrv01no6LAAiy8cnV-fBHHJhq80hME",
+                                        "visibility": "public_by_link",
+                                        "stage": "poster",
+                                        "size_bytes": 43190,
+                                        "width": null,
+                                        "height": null,
+                                        "duration_ms": null,
+                                        "checksum_sha256": null
+                                    }
+                                ],
+                                "poster_url": "https://media.sume.com/artifacts/artf_o0Yrv01no6LAAiy8cnV-fBHHJhq80hME/poster-00.jpg"
+                            },
+                            "error": null,
+                            "usage_summary": {
+                                "status": "captured",
+                                "reserved_credits": 85,
+                                "captured_credits": 85,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "final": true,
+                                "updated_at": "2026-10-26T21:40:17.484Z",
+                                "reserved_usd_cents": 136,
+                                "captured_usd_cents": 136,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0
+                            },
+                            "webhook_delivery": null,
+                            "input": {
+                                "prompt": "Replace the steam locomotive and its carriages with the white high-speed bullet train from Image 1; the waiting passengers and the station stay as they are.",
+                                "duration": 11,
+                                "video_url": "https://media.sume.com/assets/asset_512d72eb42304c21bba5041fd4720137/source.mp4",
+                                "remix_mode": "object-swap",
+                                "resolution": "480p",
+                                "remix_product": "remix",
+                                "reference_image_urls": [
+                                    "https://media.sume.com/artifacts/artf_0CiuQe_UdLsGpRozh9W3cKbGS5H1LZ4T/images.png"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
