@@ -1,0 +1,23 @@
+{
+    "name": "synthetic-submit-insufficient-funds",
+    "description": "SYNTHETIC: the submit is refused with 402 because the workspace balance does not cover the price. No job exists, nothing is polled, the run bills $0.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}"
+            },
+            "res": {
+                "status": 402,
+                "body": {
+                    "error": {
+                        "code": "insufficient_funds",
+                        "message": "The workspace balance does not cover the price.",
+                        "request_id": "req_00000000000000000000000000000001",
+                        "category": "quota"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "v1/video/sume-remix-motion-transfer": {
+        "video_url": "https://example.test/source.mp4",
+        "image_urls": ["https://example.test/person.png"],
+        "resolution": "720p",
+        "duration": 5
+    },
+    "v1/video/sume-remix-object-swap": {
+        "video_url": "https://example.test/source.mp4",
+        "image_urls": ["https://example.test/product.png"],
+        "prompt": "Replace the mug in her hand with the bottle in Image 1.",
+        "resolution": "720p",
+        "duration": 5
+    },
+    "v1/video/sume-remix-restyle": {
+        "video_url": "https://example.test/source.mp4",
+        "preset_id": "rounded-toy-cgi",
+        "resolution": "720p",
+        "duration": 5
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "name": "synthetic-poll-failed",
+    "description": "SYNTHETIC: the job query itself answers 503 after a good submit. The connector throws (retriable) rather than settle a job that may still be running and billing.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}"
+            },
+            "res": {
+                "status": 202,
+                "body": {
+                    "data": {
+                        "request_id": "job_00000000-0000-4000-8000-000000000001",
+                        "job": {
+                            "id": "job_00000000-0000-4000-8000-000000000001",
+                            "type": "video_generation",
+                            "status": "queued",
+                            "model": "sume-remix",
+                            "idempotency_key": "run-1:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T20:00:00.000Z",
+                            "updated_at": "2026-10-26T20:00:00.000Z",
+                            "started_at": null,
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "input": {
+                                "video_url": "https://example.test/source.mp4",
+                                "image_urls": [
+                                    "https://example.test/person.png"
+                                ],
+                                "resolution": "720p",
+                                "duration": 5
+                            },
+                            "result": null,
+                            "error": null,
+                            "usage_summary": {
+                                "status": "reserved",
+                                "reserved_credits": 87,
+                                "captured_credits": 0,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "reserved_usd_cents": 140,
+                                "captured_usd_cents": 0,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0,
+                                "final": false,
+                                "updated_at": "2026-10-26T20:00:00.000Z"
+                            },
+                            "webhook_delivery": null
+                        },
+                        "status_url": "https://api.sume.com/v1/jobs/job_00000000-0000-4000-8000-000000000001/status",
+                        "result_url": "https://api.sume.com/v1/jobs/job_00000000-0000-4000-8000-000000000001/result",
+                        "events_url": "https://api.sume.com/v1/jobs/job_00000000-0000-4000-8000-000000000001/events",
+                        "cancel_url": null,
+                        "cancelable": false,
+                        "next_action": "poll_status",
+                        "next_poll_after_seconds": 10,
+                        "recommended_poll_interval_seconds": 10,
+                        "retry_after_seconds": null,
+                        "result_ready": false,
+                        "terminal": false,
+                        "idempotency_hit": false,
+                        "usage": {
+                            "status": "reserved",
+                            "reserved_credits": 87,
+                            "reserved_usd_cents": 140
+                        },
+                        "remix": {
+                            "product": "Sume Remix",
+                            "mode": "motion-transfer",
+                            "model": "sume-remix"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_00000000-0000-4000-8000-000000000001"
+            },
+            "res": {
+                "status": 503,
+                "body": {
+                    "error": {
+                        "code": "service_unavailable",
+                        "message": "Try again shortly.",
+                        "request_id": "req_00000000000000000000000000000004",
+                        "category": "runtime_unavailable"
+                    }
+                }
+            }
+        }
+    ]
+}

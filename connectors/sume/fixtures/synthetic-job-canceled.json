@@ -1,0 +1,140 @@
+{
+    "name": "synthetic-job-canceled",
+    "description": "SYNTHETIC: the job ends canceled. The hold is refunded; the connector synthesizes HTTP 409 and the run bills $0.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}"
+            },
+            "res": {
+                "status": 202,
+                "body": {
+                    "data": {
+                        "request_id": "job_00000000-0000-4000-8000-000000000001",
+                        "job": {
+                            "id": "job_00000000-0000-4000-8000-000000000001",
+                            "type": "video_generation",
+                            "status": "queued",
+                            "model": "sume-remix",
+                            "idempotency_key": "run-1:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T20:00:00.000Z",
+                            "updated_at": "2026-10-26T20:00:00.000Z",
+                            "started_at": null,
+                            "completed_at": null,
+                            "canceled_at": null,
+                            "auth_source": "api_key",
+                            "input": {
+                                "video_url": "https://example.test/source.mp4",
+                                "image_urls": [
+                                    "https://example.test/person.png"
+                                ],
+                                "resolution": "720p",
+                                "duration": 5
+                            },
+                            "result": null,
+                            "error": null,
+                            "usage_summary": {
+                                "status": "reserved",
+                                "reserved_credits": 87,
+                                "captured_credits": 0,
+                                "refunded_credits": 0,
+                                "released_credits": 0,
+                                "reserved_usd_cents": 140,
+                                "captured_usd_cents": 0,
+                                "refunded_usd_cents": 0,
+                                "released_usd_cents": 0,
+                                "final": false,
+                                "updated_at": "2026-10-26T20:00:00.000Z"
+                            },
+                            "webhook_delivery": null
+                        },
+                        "status_url": "https://api.sume.com/v1/jobs/job_00000000-0000-4000-8000-000000000001/status",
+                        "result_url": "https://api.sume.com/v1/jobs/job_00000000-0000-4000-8000-000000000001/result",
+                        "events_url": "https://api.sume.com/v1/jobs/job_00000000-0000-4000-8000-000000000001/events",
+                        "cancel_url": null,
+                        "cancelable": false,
+                        "next_action": "poll_status",
+                        "next_poll_after_seconds": 10,
+                        "recommended_poll_interval_seconds": 10,
+                        "retry_after_seconds": null,
+                        "result_ready": false,
+                        "terminal": false,
+                        "idempotency_hit": false,
+                        "usage": {
+                            "status": "reserved",
+                            "reserved_credits": 87,
+                            "reserved_usd_cents": 140
+                        },
+                        "remix": {
+                            "product": "Sume Remix",
+                            "mode": "motion-transfer",
+                            "model": "sume-remix"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "req": {
+                "method": "GET",
+                "url": "{{request.origin}}/v1/jobs/job_00000000-0000-4000-8000-000000000001"
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "data": {
+                        "job": {
+                            "id": "job_00000000-0000-4000-8000-000000000001",
+                            "type": "video_generation",
+                            "status": "canceled",
+                            "model": "sume-remix",
+                            "idempotency_key": "run-1:submit",
+                            "communication_mode": "async",
+                            "created_at": "2026-10-26T20:00:00.000Z",
+                            "updated_at": "2026-10-26T20:04:10.000Z",
+                            "started_at": "2026-10-26T20:00:00.000Z",
+                            "completed_at": "2026-10-26T20:04:10.000Z",
+                            "canceled_at": "2026-10-26T20:04:10.000Z",
+                            "auth_source": "api_key",
+                            "input": {
+                                "video_url": "https://example.test/source.mp4",
+                                "image_urls": [
+                                    "https://example.test/person.png"
+                                ],
+                                "resolution": "720p",
+                                "duration": 5
+                            },
+                            "result": null,
+                            "error": {
+                                "code": "canceled",
+                                "message": "The job was canceled.",
+                                "category": "internal",
+                                "stage": "cancellation",
+                                "retryable": false,
+                                "retry_after_seconds": null,
+                                "public_reason": "canceled",
+                                "next_action": "contact_support"
+                            },
+                            "usage_summary": {
+                                "status": "refunded",
+                                "reserved_credits": 87,
+                                "captured_credits": 0,
+                                "refunded_credits": 87,
+                                "released_credits": 87,
+                                "reserved_usd_cents": 140,
+                                "captured_usd_cents": 0,
+                                "refunded_usd_cents": 140,
+                                "released_usd_cents": 140,
+                                "final": true,
+                                "updated_at": "2026-10-26T20:00:00.000Z"
+                            },
+                            "webhook_delivery": null
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "name": "synthetic-submit-invalid",
+    "description": "SYNTHETIC: the submit is refused with 400 because the source video is longer than 15 s. No job exists, nothing is polled, the run bills $0.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}"
+            },
+            "res": {
+                "status": 400,
+                "body": {
+                    "error": {
+                        "code": "invalid_request",
+                        "message": "video_url must be 4 to 15 seconds long.",
+                        "request_id": "req_00000000000000000000000000000002",
+                        "category": "validation"
+                    }
+                }
+            }
+        }
+    ]
+}

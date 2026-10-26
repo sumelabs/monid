@@ -1,0 +1,20 @@
+{
+    "name": "synthetic-submit-no-job",
+    "description": "SYNTHETIC: a 2xx submit without data.job.id. The connector throws a non-retriable error instead of polling an unknown job.",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "{{request.url}}"
+            },
+            "res": {
+                "status": 202,
+                "body": {
+                    "data": {
+                        "request_id": "req_00000000000000000000000000000003"
+                    }
+                }
+            }
+        }
+    ]
+}
